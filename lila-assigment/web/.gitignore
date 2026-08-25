@@ -1,0 +1,27 @@
+# T004: raw dataset and original minimaps must never enter the web public tree.
+player_data/
+minimaps/
+*.parquet
+**/*.parquet
+
+# Dependencies and build
+node_modules/
+dist/
+*.local
+.env
+.env.*
+
+# Generated pipeline artifacts (rebuild with python -m pipeline.build)
+# Keep public/data/.gitkeep and public/minimaps/*.webp
+public/data/matches/
+public/data/heatmaps/
+public/data/index.json
+public/data/diagnostics.json
+
+# TypeScript incremental cache
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+.vercel

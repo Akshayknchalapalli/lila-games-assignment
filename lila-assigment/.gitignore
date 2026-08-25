@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+
+# Node
+node_modules/
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.idea/
+
+# Web build
+web/dist/
+web/node_modules/
+web/*.tsbuildinfo
+web/.vercel/
+
+# Generated canonical JSON (rebuild locally; do not commit ~3k heatmap/match files)
+web/public/data/matches/
+web/public/data/heatmaps/
+web/public/data/index.json
+web/public/data/diagnostics.json

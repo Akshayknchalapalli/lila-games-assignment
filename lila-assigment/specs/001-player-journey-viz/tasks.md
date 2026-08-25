@@ -29,11 +29,11 @@
 
 **Purpose**: Project skeleton only. No canvas. No Parquet in `web/`.
 
-- [ ] T001 Create directories `pipeline/src/`, `pipeline/tests/`, `web/src/domain/`, `web/src/viz/`, `web/src/ui/`, `web/public/data/`, `web/public/minimaps/` per `specs/001-player-journey-viz/plan.md`
-- [ ] T002 Initialize Python 3.11+ project with `pyarrow`, `Pillow`, `pytest` in `pipeline/pyproject.toml`
-- [ ] T003 [P] Initialize Vite + React + TypeScript + Vitest in `web/package.json` and `web/vite.config.ts`
-- [ ] T004 [P] Add `web/.gitignore` entries so `web/src` cannot add Parquet readers; ignore raw `player_data/minimaps` from the web public tree
-- [ ] T005 Load `specs/001-player-journey-viz/contracts/map-config.json` from that canonical contract path in `pipeline/src/map_config.py`; do not duplicate scale/origin/image-size literals or create an independently maintained copy
+- [x] T001 Create directories `pipeline/src/`, `pipeline/tests/`, `web/src/domain/`, `web/src/viz/`, `web/src/ui/`, `web/public/data/`, `web/public/minimaps/` per `specs/001-player-journey-viz/plan.md`
+- [x] T002 Initialize Python 3.11+ project with `pyarrow`, `Pillow`, `pytest` in `pipeline/pyproject.toml`
+- [x] T003 [P] Initialize Vite + React + TypeScript + Vitest in `web/package.json` and `web/vite.config.ts`
+- [x] T004 [P] Add `web/.gitignore` entries so `web/src` cannot add Parquet readers; ignore raw `player_data/minimaps` from the web public tree
+- [x] T005 Load `specs/001-player-journey-viz/contracts/map-config.json` from that canonical contract path in `pipeline/src/map_config.py`; do not duplicate scale/origin/image-size literals or create an independently maintained copy
 
 ---
 
@@ -45,17 +45,17 @@
 
 ### Inspection (plan Phase 0) — Principle II
 
-- [ ] T006 Write inspection notes for schema, `event` bytes, `ts` as `timestamp[ms]`, five day folders, and unreadable-file policy in `pipeline/src/inspect.py` (read-only over `player_data/`)
-- [ ] T007 Record inspection findings that belong in docs later (no guessing) as comments or a stub list in `pipeline/src/inspect.py`
+- [x] T006 Write inspection notes for schema, `event` bytes, `ts` as `timestamp[ms]`, five day folders, and unreadable-file policy in `pipeline/src/inspect.py` (read-only over `player_data/`)
+- [x] T007 Record inspection findings that belong in docs later (no guessing) as comments or a stub list in `pipeline/src/inspect.py`
 
 ### Tests first — Principle III
 
-- [ ] T008 Write failing tests for UTF-8 event decode, UUID vs numeric actor, eight event names, unknown → quarantine (not Event) in `pipeline/tests/test_normalize.py`
-- [ ] T009 [P] Write failing tests loading `testVectors` from `specs/001-player-journey-viz/contracts/map-config.json` (Ambrose interior `inBounds: true`; origin vectors `(0, 1024)` with `inBounds: false`; pixels ±1, do not clamp) in `pipeline/tests/test_projection.py`
-- [ ] T010 [P] Write failing Vitest `worldToPixel` tests loading the same `map-config.json` `testVectors` in `web/src/domain/worldToPixel.test.ts`
-- [ ] T011 [P] Write failing reconstruction tests in `pipeline/tests/test_reconstruct.py`: join by `matchId`; events sorted ascending by `ts`; all events validate as CanonicalEvent; quarantine unknown-map row does not drop the match; conflicting known maps → error; `tsMin == min(events.ts)`; `tsMax == max(events.ts)`; `tsMin <= tsMax`; `humanCount` == distinct human `userId`s; `botCount` == distinct bot `userId`s (not event counts)
-- [ ] T012 [P] Write failing tests that no Event in a MatchDetail violates the canonical Event invariant in `pipeline/tests/test_canonical_event.py`
-- [ ] T013 [P] Write failing tests for `filesSkipped` vs row-level `unknown*` and always-written `diagnostics.json` in `pipeline/tests/test_diagnostics.py`
+- [x] T008 Write failing tests for UTF-8 event decode, UUID vs numeric actor, eight event names, unknown → quarantine (not Event) in `pipeline/tests/test_normalize.py`
+- [x] T009 [P] Write failing tests loading `testVectors` from `specs/001-player-journey-viz/contracts/map-config.json` (Ambrose interior `inBounds: true`; origin vectors `(0, 1024)` with `inBounds: false`; pixels ±1, do not clamp) in `pipeline/tests/test_projection.py`
+- [x] T010 [P] Write failing Vitest `worldToPixel` tests loading the same `map-config.json` `testVectors` in `web/src/domain/worldToPixel.test.ts`
+- [x] T011 [P] Write failing reconstruction tests in `pipeline/tests/test_reconstruct.py`: join by `matchId`; events sorted ascending by `ts`; all events validate as CanonicalEvent; quarantine unknown-map row does not drop the match; conflicting known maps → error; `tsMin == min(events.ts)`; `tsMax == max(events.ts)`; `tsMin <= tsMax`; `humanCount` == distinct human `userId`s; `botCount` == distinct bot `userId`s (not event counts)
+- [x] T012 [P] Write failing tests that no Event in a MatchDetail violates the canonical Event invariant in `pipeline/tests/test_canonical_event.py`
+- [x] T013 [P] Write failing tests for `filesSkipped` vs row-level `unknown*` and always-written `diagnostics.json` in `pipeline/tests/test_diagnostics.py`
 
 ### Normalize + quarantine — Principle II + Quality Gate 3
 
@@ -66,9 +66,9 @@ Test: fixture identities and event names classify and render as specified; discr
 Failure behavior: unknown actor/event/map rows become QuarantineRecord; they are never coerced into canonical Event fields or visualization markers
 ```
 
-- [ ] T014 Implement raw-row split (unreadable file vs invalid actor/event/map/`ts` vs Event) in `pipeline/src/normalize.py`
-- [ ] T015 Implement `QuarantineRecord` writer and counters in `pipeline/src/diagnostics.py` per `specs/001-player-journey-viz/contracts/diagnostics.schema.json`
-- [ ] T016 Make T008 and T013 pass without coercing unknown into Event fields in `pipeline/src/normalize.py` and `pipeline/src/diagnostics.py`
+- [x] T014 Implement raw-row split (unreadable file vs invalid actor/event/map/`ts` vs Event) in `pipeline/src/normalize.py`
+- [x] T015 Implement `QuarantineRecord` writer and counters in `pipeline/src/diagnostics.py` per `specs/001-player-journey-viz/contracts/diagnostics.schema.json`
+- [x] T016 Make T008 and T013 pass without coercing unknown into Event fields in `pipeline/src/normalize.py` and `pipeline/src/diagnostics.py`
 
 ### Projection — Story 1 card / Quality Gate 2
 
@@ -79,14 +79,14 @@ Test: documented world coordinate → expected pixel coordinate on each of the t
 Failure behavior: explicit error/empty state, never silent fallback to another map
 ```
 
-- [ ] T017 Implement Python bin projection using **only** loaded MapConfig (no second origin/scale table) in `pipeline/src/project.py`
-- [ ] T018 Implement `worldToPixel(mapConfig, x, z)` reading MapConfig only in `web/src/domain/worldToPixel.ts`
-- [ ] T019 Make T009 and T010 pass; unknown `mapId` fails closed in `pipeline/src/project.py` and `web/src/domain/worldToPixel.ts`
+- [x] T017 Implement Python bin projection using **only** loaded MapConfig (no second origin/scale table) in `pipeline/src/project.py`
+- [x] T018 Implement `worldToPixel(mapConfig, x, z)` reading MapConfig only in `web/src/domain/worldToPixel.ts`
+- [x] T019 Make T009 and T010 pass; unknown `mapId` fails closed in `pipeline/src/project.py` and `web/src/domain/worldToPixel.ts`
 
 ### Reconstruct — Story 3 join
 
-- [ ] T020 Implement match join from **valid** journeys only in `pipeline/src/reconstruct.py`
-- [ ] T021 Make T011 and T012 pass in `pipeline/src/reconstruct.py` (quarantined rows never participate; match/view MUST NEVER use a stand-in map)
+- [x] T020 Implement match join from **valid** journeys only in `pipeline/src/reconstruct.py`
+- [x] T021 Make T011 and T012 pass in `pipeline/src/reconstruct.py` (quarantined rows never participate; match/view MUST NEVER use a stand-in map)
 
 ### Index, heatmaps, assets — Principle V + Gates 7/9
 
@@ -97,12 +97,12 @@ Test: measure initial-load work, filter interaction, representative-match playba
 Failure behavior: if a performance budget is missed, the feature is not considered complete; optimize, reduce/simplify the implementation, or remove the offending surface
 ```
 
-- [ ] T022 Emit `index.json` (`collectionDay` → `mapId` → `matchId`, `tsUnit`, `quarantinePath`) with MapConfig parameters embedded from the canonical `specs/001-player-journey-viz/contracts/map-config.json`; web consumes this embedded MapConfig rather than maintaining its own map constants, in `pipeline/src/index.py` per `specs/001-player-journey-viz/contracts/match-index.schema.json`
-- [ ] T023 [P] Emit per-match `MatchDetail` JSON (canonical Events only) in `pipeline/src/index.py` per `specs/001-player-journey-viz/contracts/match-detail.schema.json`
-- [ ] T024 [P] Write failing then passing heatmap bin tests in `pipeline/tests/test_heatmap.py` and emit grids in `pipeline/src/heatmap.py` per `specs/001-player-journey-viz/contracts/heatmap-bins.schema.json`. Invariants: `columns == 64`; `rows == 64`; `counts.length == 4096`; `maxCount == max(counts)`; `maxCount == 0` iff all counts are 0; exactly one grain (`dayId` set XOR `matchId` set). Overlay mapping from canonical Events only: traffic ← `Position` + `BotPosition`; kill ← `Kill` + `BotKill`; death ← `Killed` + `BotKilled` + `KilledByStorm`. Loot must not increment any overlay. Quarantined rows must not increment bins.
-- [ ] T025 [P] Write compressed 1024×1024 minimaps to `web/public/minimaps/` (never the 3–12 MB originals) in `pipeline/src/assets.py`
-- [ ] T026 Wire `python -m pipeline.build --source player_data --out web/public/data` in `pipeline/src/build.py`
-- [ ] T027 Make T013 pass and verify `web/public/data/diagnostics.json` is emitted on every build, including zero-count clean builds, via `pipeline/src/build.py`
+- [x] T022 Emit `index.json` (`collectionDay` → `mapId` → `matchId`, `tsUnit`, `quarantinePath`) with MapConfig parameters embedded from the canonical `specs/001-player-journey-viz/contracts/map-config.json`; web consumes this embedded MapConfig rather than maintaining its own map constants, in `pipeline/src/index.py` per `specs/001-player-journey-viz/contracts/match-index.schema.json`
+- [x] T023 [P] Emit per-match `MatchDetail` JSON (canonical Events only) in `pipeline/src/index.py` per `specs/001-player-journey-viz/contracts/match-detail.schema.json`
+- [x] T024 [P] Write failing then passing heatmap bin tests in `pipeline/tests/test_heatmap.py` and emit grids in `pipeline/src/heatmap.py` per `specs/001-player-journey-viz/contracts/heatmap-bins.schema.json`. Invariants: `columns == 64`; `rows == 64`; `counts.length == 4096`; `maxCount == max(counts)`; `maxCount == 0` iff all counts are 0; exactly one grain (`dayId` set XOR `matchId` set). Overlay mapping from canonical Events only: traffic ← `Position` + `BotPosition`; kill ← `Kill` + `BotKill`; death ← `Killed` + `BotKilled` + `KilledByStorm`. Loot must not increment any overlay. Quarantined rows must not increment bins.
+- [x] T025 [P] Write compressed 1024×1024 minimaps to `web/public/minimaps/` (never the 3–12 MB originals) in `pipeline/src/assets.py`
+- [x] T026 Wire `python -m pipeline.build --source player_data --out web/public/data` in `pipeline/src/build.py`
+- [x] T027 Make T013 pass and verify `web/public/data/diagnostics.json` is emitted on every build, including zero-count clean builds, via `pipeline/src/build.py`
 
 **Checkpoint**: Foundation ready. `pytest pipeline/tests` and `npx vitest run web/src/domain/worldToPixel.test.ts` pass. Canvas work may start.
 
@@ -123,14 +123,14 @@ Failure behavior: explicit error/empty state, never silent fallback to another m
 
 ### Tests
 
-- [ ] T028 [P] [US1] Add failing index-loading/default-selection tests (default Ambrose Valley + February 10, match list from `index.json` only) in `web/src/domain/filters.test.ts`
+- [x] T028 [P] [US1] Add failing index-loading/default-selection tests (default Ambrose Valley + February 10, match list from `index.json` only) in `web/src/domain/filters.test.ts`
 
 ### Implementation
 
-- [ ] T029 [US1] Load `web/public/data/index.json` (no Parquet) in `web/src/domain/indexLoader.ts`
-- [ ] T030 [US1] Draw compressed minimap + projected paths via `worldToPixel` on Canvas in `web/src/viz/mapCanvas.ts`
-- [ ] T031 [US1] Wire default landing and match selection chrome in `web/src/ui/App.tsx`
-- [ ] T032 [US1] Show explicit empty/error when a match cannot be reconstructed; MUST NEVER use a stand-in map in `web/src/ui/EmptyErrorStates.tsx`
+- [x] T029 [US1] Load `web/public/data/index.json` (no Parquet) in `web/src/domain/indexLoader.ts`
+- [x] T030 [US1] Draw compressed minimap + projected paths via `worldToPixel` on Canvas in `web/src/viz/mapCanvas.ts`
+- [x] T031 [US1] Wire default landing and match selection chrome in `web/src/ui/App.tsx`
+- [x] T032 [US1] Show explicit empty/error when a match cannot be reconstructed; MUST NEVER use a stand-in map in `web/src/ui/EmptyErrorStates.tsx`
 
 **Checkpoint**: US1 independently testable on `npm run dev`.
 
@@ -151,14 +151,14 @@ Failure behavior: unknown event type is an explicit state, never coerced into an
 
 ### Tests
 
-- [ ] T033 [P] [US2] Add failing visual-language unit tests (human vs bot stroke/color; six discrete markers; movement not mixed with markers) in `web/src/viz/visualLanguage.test.ts`
+- [x] T033 [P] [US2] Add failing visual-language unit tests (human vs bot stroke/color; six discrete markers; movement not mixed with markers) in `web/src/viz/visualLanguage.test.ts`
 
 ### Implementation
 
-- [ ] T034 [US2] Encode visual language from `specs/001-player-journey-viz/contracts/ui-view-state.md` in `web/src/viz/visualLanguage.ts`
-- [ ] T035 [US2] Draw human/bot paths and discrete markers on Canvas (no one-DOM-node-per-sample) in `web/src/viz/mapCanvas.ts`
-- [ ] T036 [US2] Show `loadReport` partial-data when quarantine counts > 0 in `web/src/ui/PartialDataBanner.tsx`
-- [ ] T037 [US2] Make T033 pass; never coerce unknown into a marker in `web/src/viz/mapCanvas.ts`
+- [x] T034 [US2] Encode visual language from `specs/001-player-journey-viz/contracts/ui-view-state.md` in `web/src/viz/visualLanguage.ts`
+- [x] T035 [US2] Draw human/bot paths and discrete markers on Canvas (no one-DOM-node-per-sample) in `web/src/viz/mapCanvas.ts`
+- [x] T036 [US2] Show `loadReport` partial-data when quarantine counts > 0 in `web/src/ui/PartialDataBanner.tsx`
+- [x] T037 [US2] Make T033 pass; never coerce unknown into a marker in `web/src/viz/mapCanvas.ts`
 
 **Checkpoint**: US1 + US2 independently testable.
 
@@ -179,15 +179,15 @@ Failure behavior: empty filter result is an empty state, never a stale canvas
 
 ### Tests
 
-- [ ] T038 [P] [US3] Add failing tests that filters key `dayId` not `ts`, February 14 is partial, empty subset clears selection in `web/src/domain/filters.test.ts`
+- [x] T038 [P] [US3] Add failing tests that filters key `dayId` not `ts`, February 14 is partial, empty subset clears selection in `web/src/domain/filters.test.ts`
 
 ### Implementation
 
-- [ ] T039 [US3] Implement `FilterState` (reset canvas/playhead/heatmap together) in `web/src/domain/filters.ts`
-- [ ] T040 [US3] Place map, day, match controls in a stable chrome location in `web/src/ui/FilterBar.tsx`
-- [ ] T041 [US3] Label February 14 partial in `web/src/ui/FilterBar.tsx`
-- [ ] T042 [US3] On empty subset, show empty state and clear canvas in `web/src/ui/EmptyErrorStates.tsx`
-- [ ] T043 [US3] Make T028 and T038 pass in `web/src/domain/filters.ts`
+- [x] T039 [US3] Implement `FilterState` (reset canvas/playhead/heatmap together) in `web/src/domain/filters.ts`
+- [x] T040 [US3] Place map, day, match controls in a stable chrome location in `web/src/ui/FilterBar.tsx`
+- [x] T041 [US3] Label February 14 partial in `web/src/ui/FilterBar.tsx`
+- [x] T042 [US3] On empty subset, show empty state and clear canvas in `web/src/ui/EmptyErrorStates.tsx`
+- [x] T043 [US3] Make T028 and T038 pass in `web/src/domain/filters.ts`
 
 **Checkpoint**: US1–US3 independently testable.
 
@@ -208,14 +208,14 @@ Failure behavior: no match selected → disabled/empty timeline, never a broken 
 
 ### Tests
 
-- [ ] T044 [P] [US4] Add failing playhead tests (`tsMin ≤ t ≤ tsMax`, visible set `ts <= t`, null match → disabled) in `web/src/domain/playhead.test.ts`
+- [x] T044 [P] [US4] Add failing playhead tests (`tsMin ≤ t ≤ tsMax`, visible set `ts <= t`, null match → disabled) in `web/src/domain/playhead.test.ts`
 
 ### Implementation
 
-- [ ] T045 [US4] Implement playhead state in `web/src/domain/playhead.ts`
-- [ ] T046 [US4] Drive Canvas with `requestAnimationFrame` (no DOM node per sample) in `web/src/viz/playback.ts`
-- [ ] T047 [US4] Add play/pause/playhead chrome in `web/src/ui/Timeline.tsx`
-- [ ] T048 [US4] Make T044 pass; disable timeline when no match in `web/src/ui/Timeline.tsx`
+- [x] T045 [US4] Implement playhead state in `web/src/domain/playhead.ts`
+- [x] T046 [US4] Drive Canvas with `requestAnimationFrame` (no DOM node per sample) in `web/src/viz/playback.ts`
+- [x] T047 [US4] Add play/pause/playhead chrome in `web/src/ui/Timeline.tsx`
+- [x] T048 [US4] Make T044 pass; disable timeline when no match in `web/src/ui/Timeline.tsx`
 
 **Checkpoint**: US4 independently testable.
 
@@ -236,15 +236,15 @@ Failure behavior: no samples for an overlay → empty overlay state, never a lef
 
 ### Tests
 
-- [ ] T049 [P] [US5] Add failing tests that heatmap draw uses `counts` length 4096 only (no per-sample nodes) in `web/src/viz/heatmapLayer.test.ts`
+- [x] T049 [P] [US5] Add failing tests that heatmap draw uses `counts` length 4096 only (no per-sample nodes) in `web/src/viz/heatmapLayer.test.ts`
 
 ### Implementation
 
-- [ ] T050 [US5] Load map+day or per-match bin JSON in `web/src/domain/heatmapLoader.ts`
-- [ ] T051 [US5] Rasterize bins to Canvas `ImageData` in `web/src/viz/heatmapLayer.ts`
-- [ ] T052 [US5] Independent labeled toggles (traffic, kill, death) in `web/src/ui/HeatmapToggles.tsx`
-- [ ] T053 [US5] Empty overlay when `maxCount === 0`; clear leftover on filter change in `web/src/viz/heatmapLayer.ts`
-- [ ] T054 [US5] Make T049 pass in `web/src/viz/heatmapLayer.ts`
+- [x] T050 [US5] Load map+day or per-match bin JSON in `web/src/domain/heatmapLoader.ts`
+- [x] T051 [US5] Rasterize bins to Canvas `ImageData` in `web/src/viz/heatmapLayer.ts`
+- [x] T052 [US5] Independent labeled toggles (traffic, kill, death) in `web/src/ui/HeatmapToggles.tsx`
+- [x] T053 [US5] Empty overlay when `maxCount === 0`; clear leftover on filter change in `web/src/viz/heatmapLayer.ts`
+- [x] T054 [US5] Make T049 pass in `web/src/viz/heatmapLayer.ts`
 
 **Checkpoint**: US5 independently testable.
 
@@ -261,10 +261,10 @@ Test: measure initial-load work, filter interaction, representative-match playba
 Failure behavior: if a performance budget is missed, the feature is not considered complete; optimize, reduce/simplify the implementation, or remove the offending surface
 ```
 
-- [ ] T055 [FC7] Confirm first paint fetches `index.json` + minimap only (not every match file) in `web/src/domain/indexLoader.ts`
-- [ ] T056 [FC7] Simplify `Position`/`BotPosition` polylines only (never drop discrete events) in `web/src/viz/pathSimplify.ts`
-- [ ] T057 [FC7] Measure representative-match playback FPS; if < 30, optimize or remove surface in `web/src/viz/playback.ts` (do not ship a missed budget)
-- [ ] T058 [FC7] Measure heatmap rendering and filter-replacement performance using production-sized 64×64 bins; overlays MUST stay responsive and use aggregated bins only in `web/src/viz/heatmapLayer.ts`
+- [x] T055 [FC7] Confirm first paint fetches `index.json` + minimap only (not every match file) in `web/src/domain/indexLoader.ts`
+- [x] T056 [FC7] Simplify `Position`/`BotPosition` polylines only (never drop discrete events) in `web/src/viz/pathSimplify.ts`
+- [x] T057 [FC7] Measure representative-match playback FPS; if < 30, optimize or remove surface in `web/src/viz/playback.ts` (do not ship a missed budget)
+- [x] T058 [FC7] Measure heatmap rendering and filter-replacement performance using production-sized 64×64 bins; overlays MUST stay responsive and use aggregated bins only in `web/src/viz/heatmapLayer.ts`
 
 **Checkpoint**: Story 7 failure behavior enforced locally. Repeat first-paint, filter, playback FPS, and heatmap measurements against the hosted build in T065.
 
@@ -283,8 +283,8 @@ Test: open the link on a clean machine and complete the core flows; corrupt file
 Failure behavior: load/error/partial states are explicit; the tool does not crash on bad files
 ```
 
-- [ ] T059 [US6] Add loading state distinct from blank canvas in `web/src/ui/EmptyErrorStates.tsx`
-- [ ] T060 [US6] Configure static deploy of `web/dist` + `web/public/data` + compressed minimaps (Vercel or Netlify config at `web/`)
+- [x] T059 [US6] Add loading state distinct from blank canvas in `web/src/ui/EmptyErrorStates.tsx`
+- [x] T060 [US6] Configure static deploy of `web/dist` + `web/public/data` + compressed minimaps (Vercel or Netlify config at `web/`)
 - [ ] T061 [US6] Record the public URL in `README.md`
 
 ---
@@ -293,9 +293,9 @@ Failure behavior: load/error/partial states are explicit; the tool does not cras
 
 **Purpose**: Quality Gates 8–9 docs and quickstart walkthrough. No new product surface.
 
-- [ ] T062 [P] Write `README.md` (stack, setup, env, public URL)
-- [ ] T063 [P] Write `ARCHITECTURE.md` (pipeline, MapConfig SSOT, projection formula, assumptions, tradeoffs, inspection notes)
-- [ ] T064 [P] Write `INSIGHTS.md` (three evidenced findings)
+- [x] T062 [P] Write `README.md` (stack, setup, env, public URL)
+- [x] T063 [P] Write `ARCHITECTURE.md` (pipeline, MapConfig SSOT, projection formula, assumptions, tradeoffs, inspection notes)
+- [x] T064 [P] Write `INSIGHTS.md` (three evidenced findings)
 - [ ] T065 Run `specs/001-player-journey-viz/quickstart.md` §§1–7 as the final Gate 1–9 acceptance, including repeating FC7 first-paint/filter/playback/heatmap measurements on the **hosted** URL; record results in `specs/001-player-journey-viz/checklists/quality-gates.md`
 
 ---
