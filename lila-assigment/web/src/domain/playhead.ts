@@ -17,7 +17,7 @@ export function playheadForMatch(
   tsMin: number,
   tsMax: number,
 ): PlayheadState {
-  return { matchId, t: tsMin, playing: false, tsMin, tsMax };
+  return { matchId, t: tsMax, playing: false, tsMin, tsMax };
 }
 
 export function clampPlayhead(t: number, tsMin: number, tsMax: number): number {

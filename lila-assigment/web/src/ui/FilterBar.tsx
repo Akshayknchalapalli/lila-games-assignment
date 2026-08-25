@@ -7,10 +7,15 @@ type Props = {
   onChange: (patch: Partial<FilterState>) => void;
 };
 
+function shortMatchId(matchId: string): string {
+  const core = matchId.replace(/\.nakama-0$/, "");
+  return core.length > 12 ? `${core.slice(0, 8)}…${core.slice(-4)}` : core;
+}
+
 export function FilterBar({ index, filter, onChange }: Props) {
   const matches = matchesForFilter(index, filter);
   return (
-    <section className="chrome-row" aria-label="Filters">
+    <section className="filter-cluster" aria-label="Filters">
       <label>
         Map
         <select
@@ -27,7 +32,7 @@ export function FilterBar({ index, filter, onChange }: Props) {
         </select>
       </label>
       <label>
-        Collection day
+        Day
         <select
           value={filter.dayId ?? ""}
           onChange={(e) =>
@@ -42,7 +47,7 @@ export function FilterBar({ index, filter, onChange }: Props) {
         </select>
       </label>
       {isPartialDay(index, filter.dayId) ? (
-        <span className="partial-pill">Partial day — incomplete sample</span>
+        <span className="partial-pill">Partial</span>
       ) : null}
       <label className="match-select">
         Match
@@ -52,8 +57,8 @@ export function FilterBar({ index, filter, onChange }: Props) {
         >
           <option value="">Select a match…</option>
           {matches.map((match) => (
-            <option key={match.matchId} value={match.matchId}>
-              {match.matchId} · {match.humanCount}H/{match.botCount}B
+            <option key={match.matchId} value={match.matchId} title={match.matchId}>
+              {shortMatchId(match.matchId)} · {match.humanCount}H {match.botCount}B
             </option>
           ))}
         </select>

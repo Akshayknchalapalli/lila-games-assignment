@@ -8,23 +8,24 @@ type Props = {
 
 const LABELS: Record<HeatmapOverlay, string> = {
   traffic: "Traffic",
-  kill: "Kill zones",
-  death: "Death zones",
+  kill: "Kills",
+  death: "Deaths",
 };
 
 export function HeatmapToggles({ enabled, empty, onToggle }: Props) {
   return (
-    <section className="chrome-row" aria-label="Heatmap overlays">
+    <section className="overlay-pills" aria-label="Heatmap overlays">
       {(Object.keys(LABELS) as HeatmapOverlay[]).map((overlay) => (
-        <label key={overlay} className="toggle">
-          <input
-            type="checkbox"
-            checked={enabled[overlay]}
-            onChange={() => onToggle(overlay)}
-          />
+        <button
+          key={overlay}
+          type="button"
+          className={`pill pill-${overlay} ${enabled[overlay] ? "on" : ""}`}
+          aria-pressed={enabled[overlay]}
+          onClick={() => onToggle(overlay)}
+        >
           {LABELS[overlay]}
-          {empty[overlay] ? <em> empty</em> : null}
-        </label>
+          {empty[overlay] ? <span className="pill-empty">0</span> : null}
+        </button>
       ))}
     </section>
   );

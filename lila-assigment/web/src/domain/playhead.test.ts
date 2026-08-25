@@ -40,7 +40,9 @@ const events: CanonicalEvent[] = [
 describe("playhead contract (T044)", () => {
   it("keeps t in [tsMin, tsMax] and visible set is ts <= t", () => {
     const state = playheadForMatch("m", 100, 200);
-    expect(state.t).toBe(100);
+    expect(state.t).toBe(200);
+    expect(state.t).toBeGreaterThanOrEqual(state.tsMin!);
+    expect(state.t).toBeLessThanOrEqual(state.tsMax!);
     expect(clampPlayhead(50, 100, 200)).toBe(100);
     expect(clampPlayhead(250, 100, 200)).toBe(200);
     expect(visibleEvents(events, 100).map((e) => e.eventKind)).toEqual(["Position"]);
