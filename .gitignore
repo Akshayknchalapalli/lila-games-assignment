@@ -38,9 +38,4 @@ lila-assigment/pipeline/**/__pycache__/
 lila-assigment/.venv/
 *.tsbuildinfo
 
-# Generated canonical JSON (~3k files, rebuild with the pipeline)
-lila-assigment/web/public/data/matches/
-lila-assigment/web/public/data/heatmaps/
-lila-assigment/web/public/data/index.json
-lila-assigment/web/public/data/diagnostics.json
 

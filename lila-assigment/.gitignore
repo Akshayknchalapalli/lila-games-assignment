@@ -33,8 +33,3 @@ web/node_modules/
 web/*.tsbuildinfo
 web/.vercel/
 
-# Generated canonical JSON (rebuild locally; do not commit ~3k heatmap/match files)
-web/public/data/matches/
-web/public/data/heatmaps/
-web/public/data/index.json
-web/public/data/diagnostics.json
