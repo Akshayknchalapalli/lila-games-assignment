@@ -424,6 +424,79 @@ canvas {
   color: var(--muted);
 }
 
+.speed-menu-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.speed-toggle {
+  min-width: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: rgba(7, 9, 15, 0.45);
+  color: var(--text);
+  font: 600 0.78rem/1 "IBM Plex Sans", sans-serif;
+  cursor: pointer;
+}
+
+.speed-menu {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  z-index: 8;
+  min-width: 168px;
+  max-height: min(360px, 50vh);
+  overflow: auto;
+  padding: 8px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(12, 16, 24, 0.96);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.speed-menu-title {
+  margin: 0 0 6px;
+  padding: 4px 14px 8px;
+  color: var(--muted);
+  font: 600 0.72rem/1 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.speed-menu-sep {
+  display: block;
+  height: 1px;
+  margin: 6px 10px;
+  background: var(--line);
+}
+
+.speed-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--text);
+  font: 500 0.85rem/1 "IBM Plex Sans", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.speed-menu button:hover,
+.speed-menu button.on {
+  background: rgba(62, 224, 196, 0.12);
+}
+
+.speed-check {
+  width: 14px;
+  color: var(--human);
+  font-size: 0.75rem;
+}
+
 .timeline input[type="range"] {
   flex: 1;
   min-width: 0;

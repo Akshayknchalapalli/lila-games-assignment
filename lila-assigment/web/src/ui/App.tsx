@@ -12,6 +12,7 @@ import {
 import { dayHeatmapUrl, loadHeatmap, matchHeatmapUrl } from "../domain/heatmapLoader";
 import {
   clampPlayhead,
+  DEFAULT_PLAYBACK_RATE,
   disabledPlayhead,
   playheadForMatch,
   visibleEvents,
@@ -52,6 +53,7 @@ export function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const playheadRef = useRef<PlayheadState>(disabledPlayhead());
+  const rateRef = useRef(DEFAULT_PLAYBACK_RATE);
   const dragRef = useRef<{ x: number; y: number } | null>(null);
   const [index, setIndex] = useState<MatchIndex | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -60,6 +62,7 @@ export function App() {
   const [matchError, setMatchError] = useState<string | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [playhead, setPlayhead] = useState<PlayheadState>(disabledPlayhead());
+  const [playbackRate, setPlaybackRate] = useState(DEFAULT_PLAYBACK_RATE);
   const [toggles, setToggles] = useState(EMPTY_TOGGLES);
   const [heatmaps, setHeatmaps] = useState<Record<HeatmapOverlay, HeatmapGrid | null>>({
     traffic: null,
@@ -72,6 +75,7 @@ export function App() {
   const [panning, setPanning] = useState(false);
 
   playheadRef.current = playhead;
+  rateRef.current = playbackRate;
 
   useEffect(() => {
     let cancelled = false;
@@ -198,8 +202,12 @@ export function App() {
   useEffect(() => {
     const handle = startPlayback(
       () => playheadRef.current,
-      (next) => setPlayhead(next),
+      (next) => {
+        playheadRef.current = next;
+        setPlayhead(next);
+      },
       setFps,
+      () => rateRef.current,
     );
     return () => handle.stop();
   }, []);
@@ -361,6 +369,7 @@ export function App() {
       </div>
       <Timeline
         playhead={playhead}
+        rate={playbackRate}
         matchSummary={
           selectedMatch
             ? `${selectedMatch.humanCount}H ${selectedMatch.botCount}B${
@@ -383,6 +392,7 @@ export function App() {
               : current,
           )
         }
+        onRate={setPlaybackRate}
       />
     </div>
   );

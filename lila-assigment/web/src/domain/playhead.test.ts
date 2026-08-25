@@ -4,8 +4,10 @@ import {
   advancePlayhead,
   clampPlayhead,
   disabledPlayhead,
+  playbackSpeedLabel,
   playheadForMatch,
   visibleEvents,
+  wallClockToTsDelta,
 } from "./playhead";
 
 const events: CanonicalEvent[] = [
@@ -57,5 +59,21 @@ describe("playhead contract (T044)", () => {
     expect(idle.matchId).toBeNull();
     expect(idle.playing).toBe(false);
     expect(advancePlayhead(idle, 16).playing).toBe(false);
+  });
+
+  it("scales advance by playback rate", () => {
+    const playing = { matchId: "m", t: 100, playing: true, tsMin: 100, tsMax: 1000 };
+    expect(advancePlayhead(playing, 100, 0.5).t).toBe(150);
+    expect(advancePlayhead(playing, 100, 2).t).toBe(300);
+  });
+
+  it("maps one wall-clock second to one timestamp unit", () => {
+    expect(wallClockToTsDelta(1000)).toBe(1);
+    expect(wallClockToTsDelta(16.67)).toBeCloseTo(0.01667, 5);
+  });
+
+  it("labels 1x as Normal like YouTube", () => {
+    expect(playbackSpeedLabel(1)).toBe("Normal");
+    expect(playbackSpeedLabel(1.5)).toBe("1.5");
   });
 });

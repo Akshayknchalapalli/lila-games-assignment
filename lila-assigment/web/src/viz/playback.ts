@@ -1,5 +1,5 @@
 import type { PlayheadState } from "../domain/playhead";
-import { advancePlayhead } from "../domain/playhead";
+import { advancePlayhead, wallClockToTsDelta } from "../domain/playhead";
 
 export type PlaybackHandle = {
   stop: () => void;
@@ -9,6 +9,7 @@ export function startPlayback(
   getState: () => PlayheadState,
   setState: (next: PlayheadState) => void,
   onFps?: (fps: number) => void,
+  getRate?: () => number,
 ): PlaybackHandle {
   let raf = 0;
   let last = performance.now();
@@ -26,7 +27,7 @@ export function startPlayback(
     }
     const state = getState();
     if (state.playing) {
-      setState(advancePlayhead(state, dt));
+      setState(advancePlayhead(state, wallClockToTsDelta(dt), getRate?.() ?? 1));
     }
     raf = requestAnimationFrame(tick);
   };

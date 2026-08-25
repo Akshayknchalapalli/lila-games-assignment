@@ -1,10 +1,13 @@
 import type { PlayheadState } from "../domain/playhead";
 import { MapLegend } from "./MapLegend";
+import { PlaybackSpeedMenu } from "./PlaybackSpeedMenu";
 
 type Props = {
   playhead: PlayheadState;
+  rate: number;
   onToggle: () => void;
   onSeek: (t: number) => void;
+  onRate: (rate: number) => void;
   matchSummary?: string | null;
 };
 
@@ -15,14 +18,14 @@ function formatElapsed(t: number | null, tsMin: number | null, tsMax: number | n
   return `${fmt(elapsed)} / ${fmt(total)}`;
 }
 
-function fmt(ms: number): string {
-  const seconds = Math.floor(ms / 1000);
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
+function fmt(seconds: number): string {
+  const total = Math.max(0, Math.floor(seconds));
+  const m = Math.floor(total / 60);
+  const s = total % 60;
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export function Timeline({ playhead, onToggle, onSeek, matchSummary }: Props) {
+export function Timeline({ playhead, rate, onToggle, onSeek, onRate, matchSummary }: Props) {
   const disabled = playhead.matchId == null;
   return (
     <section className="timeline" aria-label="Playback">
@@ -36,6 +39,7 @@ export function Timeline({ playhead, onToggle, onSeek, matchSummary }: Props) {
         >
           {playhead.playing ? "Pause" : "Play"}
         </button>
+        <PlaybackSpeedMenu rate={rate} disabled={disabled} onRate={onRate} />
         <input
           type="range"
           disabled={disabled}
