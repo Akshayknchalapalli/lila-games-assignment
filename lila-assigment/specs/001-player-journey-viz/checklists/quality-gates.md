@@ -12,7 +12,7 @@ Recorded 2026-08-25 against local pipeline + Vite build. Hosted FC7 repeat is li
 | 6 Heatmaps | PASS | pytest `test_heatmap.py` 64×64/4096; vitest rasterize 4096 counts |
 | 7 First paint / perf | PASS (local) | First effect loads index+diagnostics only; heatmap raster < 16 ms; playback advance ≥ 30 FPS |
 | 8 Docs | PASS | README.md, ARCHITECTURE.md, INSIGHTS.md |
-| 9 Hosted URL | LOCAL PASS / HOSTED PENDING | Static `web/` + `public/data` + compressed minimaps ready; public URL recorded in README after deploy |
+| 9 Hosted URL | PASS | https://lila-games-assignment-one.vercel.app/ |
 
 ## Quickstart §§1–7
 

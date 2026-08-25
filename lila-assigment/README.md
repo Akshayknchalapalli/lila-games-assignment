@@ -35,16 +35,14 @@ No API keys. No auth. Projection parameters come from `specs/001-player-journey-
 
 ## Public URL
 
-Deploy the Vite app (including generated `public/data` and `public/minimaps`) from `web/`:
+**Public URL:** [https://lila-games-assignment-one.vercel.app/](https://lila-games-assignment-one.vercel.app/)
+
+That is the Quality Gate 9 link. Deploy from `lila-assigment/web` on branch `dev` (Vite). Regenerating data:
 
 ```text
 cd web
 npx vercel --prod
 ```
-
-The production URL from that command is the Quality Gate 9 link. Record it here when issued:
-
-**Public URL:** _pending `npx vercel --prod` from `web/`_
 
 ## Tests
 
