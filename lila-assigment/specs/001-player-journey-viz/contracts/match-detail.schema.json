@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lila.local/contracts/match-detail.schema.json",
+  "title": "MatchDetail",
+  "description": "Canonical reconstructed match. Events are valid CanonicalEvent only (quarantine excluded). Build/runtime: tsMin == min(events.ts), tsMax == max(events.ts), tsMin <= tsMax; humanCount/botCount are distinct actor counts, not event counts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "matchId",
+    "mapId",
+    "collectionDay",
+    "humanCount",
+    "botCount",
+    "tsMin",
+    "tsMax",
+    "tsUnit",
+    "events"
+  ],
+  "properties": {
+    "matchId": { "type": "string", "minLength": 1 },
+    "mapId": {
+      "type": "string",
+      "enum": ["AmbroseValley", "GrandRift", "Lockdown"]
+    },
+    "collectionDay": {
+      "type": "string",
+      "enum": [
+        "February_10",
+        "February_11",
+        "February_12",
+        "February_13",
+        "February_14"
+      ]
+    },
+    "humanCount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Count of distinct canonical human actors (userId) in this match, not the number of human events."
+    },
+    "botCount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Count of distinct canonical bot actors (userId) in this match, not the number of bot events."
+    },
+    "tsMin": {
+      "type": "number",
+      "description": "Minimum ts among valid canonical events; MUST be <= tsMax. Build/runtime: tsMin == min(events.ts)."
+    },
+    "tsMax": {
+      "type": "number",
+      "description": "Maximum ts among valid canonical events; MUST be >= tsMin. Build/runtime: tsMax == max(events.ts)."
+    },
+    "tsUnit": {
+      "type": "string",
+      "description": "Physical unit recorded after schema inspection (this export: ms). Not calendar time."
+    },
+    "events": {
+      "type": "array",
+      "description": "Flattened journeys, sorted by ts ascending. Quarantine records MUST NOT appear.",
+      "items": { "$ref": "./canonical-event.schema.json" }
+    }
+  }
+}

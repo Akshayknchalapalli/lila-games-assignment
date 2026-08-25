@@ -1,0 +1,61 @@
+{
+  "imageWidth": 1024,
+  "imageHeight": 1024,
+  "maps": [
+    {
+      "mapId": "AmbroseValley",
+      "displayName": "Ambrose Valley",
+      "scale": 900,
+      "originX": -370,
+      "originZ": -473
+    },
+    {
+      "mapId": "GrandRift",
+      "displayName": "Grand Rift",
+      "scale": 581,
+      "originX": -290,
+      "originZ": -290
+    },
+    {
+      "mapId": "Lockdown",
+      "displayName": "Lockdown",
+      "scale": 1000,
+      "originX": -500,
+      "originZ": -500
+    }
+  ],
+  "testVectors": [
+    {
+      "mapId": "AmbroseValley",
+      "x": -301.45,
+      "z": -355.55,
+      "pixelX": 78,
+      "pixelY": 890,
+      "inBounds": true
+    },
+    {
+      "mapId": "AmbroseValley",
+      "x": -370,
+      "z": -473,
+      "pixelX": 0,
+      "pixelY": 1024,
+      "inBounds": false
+    },
+    {
+      "mapId": "GrandRift",
+      "x": -290,
+      "z": -290,
+      "pixelX": 0,
+      "pixelY": 1024,
+      "inBounds": false
+    },
+    {
+      "mapId": "Lockdown",
+      "x": -500,
+      "z": -500,
+      "pixelX": 0,
+      "pixelY": 1024,
+      "inBounds": false
+    }
+  ]
+}

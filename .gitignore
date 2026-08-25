@@ -1,0 +1,47 @@
+# Single repo-wide ignore. Nested .gitignore files are not used.
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+*.log
+npm-debug.log*
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.idea/
+.vscode/
+
+# Vite / TypeScript
+*.tsbuildinfo
+lila-assigment/web/dist/
+lila-assigment/web/.vercel/
+
+# Never copy the raw Parquet dataset into the web public tree.
+# Source telemetry stays in lila-assigment/player_data/ (tracked).
+lila-assigment/web/player_data/
+lila-assigment/web/minimaps/
+lila-assigment/web/**/*.parquet
+
+# Spec Kit machine-local state
+lila-assigment/.specify/feature.json
+lila-assigment/.specify/extensions/*/local-config.yml

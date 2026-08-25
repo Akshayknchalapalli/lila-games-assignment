@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lila.local/contracts/heatmap-bins.schema.json",
+  "title": "HeatmapGrid",
+  "description": "Aggregated 64×64 overlay only. Two grains: map+day (dayId set, matchId null) or per-match (matchId set, dayId null). maxCount == max(counts) is a build/runtime invariant (not expressible as a simple JSON Schema comparison).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "overlay",
+    "mapId",
+    "dayId",
+    "matchId",
+    "columns",
+    "rows",
+    "counts",
+    "maxCount"
+  ],
+  "properties": {
+    "overlay": { "type": "string", "enum": ["traffic", "kill", "death"] },
+    "mapId": {
+      "type": "string",
+      "enum": ["AmbroseValley", "GrandRift", "Lockdown"]
+    },
+    "dayId": {
+      "type": ["string", "null"],
+      "enum": [
+        "February_10",
+        "February_11",
+        "February_12",
+        "February_13",
+        "February_14",
+        null
+      ]
+    },
+    "matchId": { "type": ["string", "null"] },
+    "columns": { "type": "integer", "const": 64 },
+    "rows": { "type": "integer", "const": 64 },
+    "counts": {
+      "type": "array",
+      "minItems": 4096,
+      "maxItems": 4096,
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "maxCount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Must equal the maximum value in counts; 0 when all counts are 0. Enforced at build/runtime: maxCount == max(counts). UI empty overlay when maxCount === 0."
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "dayId": {
+          "type": "string",
+          "enum": [
+            "February_10",
+            "February_11",
+            "February_12",
+            "February_13",
+            "February_14"
+          ]
+        },
+        "matchId": { "type": "null" }
+      }
+    },
+    {
+      "properties": {
+        "dayId": { "type": "null" },
+        "matchId": { "type": "string", "minLength": 1 }
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lila.local/contracts/diagnostics.schema.json",
+  "title": "Diagnostics",
+  "description": "Serialized quarantine plus LoadReport summary. These records MUST NOT be silently discarded. quarantinePath is NOT in this document (it would be self-referential); it belongs only on index.json loadReport and points here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["loadReport", "quarantine"],
+  "properties": {
+    "loadReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "filesSeen",
+        "filesSkipped",
+        "skipReasons",
+        "unknownActors",
+        "unknownEvents",
+        "unknownMaps"
+      ],
+      "properties": {
+        "filesSeen": { "type": "integer", "minimum": 0 },
+        "filesSkipped": { "type": "integer", "minimum": 0 },
+        "skipReasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["file", "reason"],
+            "properties": {
+              "file": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "unknownActors": { "type": "integer", "minimum": 0 },
+        "unknownEvents": { "type": "integer", "minimum": 0 },
+        "unknownMaps": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "quarantine": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["reason", "sourceFile"],
+        "properties": {
+          "reason": {
+            "type": "string",
+            "enum": [
+              "unreadable_file",
+              "unknown_actor",
+              "unknown_event",
+              "unknown_map",
+              "ts_unit_mismatch"
+            ]
+          },
+          "sourceFile": { "type": "string" },
+          "userId": { "type": "string" },
+          "matchId": { "type": "string" },
+          "mapId": { "type": "string" },
+          "eventRaw": { "type": "string" }
+        }
+      }
+    }
+  }
+}
