@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lila.local/contracts/map-config.schema.json",
+  "title": "MapConfigFile",
+  "description": "Single source of truth for per-map scale, origin, and image size. Pipeline and web MUST consume this artifact (or the copy embedded in index.json). Magic numbers MUST NOT be duplicated in Python or TypeScript source.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["imageWidth", "imageHeight", "maps", "testVectors"],
+  "properties": {
+    "imageWidth": { "type": "integer", "const": 1024 },
+    "imageHeight": { "type": "integer", "const": 1024 },
+    "maps": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["mapId", "displayName", "scale", "originX", "originZ"],
+        "properties": {
+          "mapId": {
+            "type": "string",
+            "enum": ["AmbroseValley", "GrandRift", "Lockdown"]
+          },
+          "displayName": { "type": "string" },
+          "scale": { "type": "number" },
+          "originX": { "type": "number" },
+          "originZ": { "type": "number" }
+        }
+      },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "required": ["mapId"],
+            "properties": { "mapId": { "const": "AmbroseValley" } }
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": ["mapId"],
+            "properties": { "mapId": { "const": "GrandRift" } }
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": ["mapId"],
+            "properties": { "mapId": { "const": "Lockdown" } }
+          }
+        }
+      ]
+    },
+    "testVectors": {
+      "type": "array",
+      "description": "Required projection tests. pixelX/pixelY must match within ±1. inBounds is a separate assertion (canvas validity), not a clamp of the projection.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["mapId", "x", "z", "pixelX", "pixelY", "inBounds"],
+        "properties": {
+          "mapId": {
+            "type": "string",
+            "enum": ["AmbroseValley", "GrandRift", "Lockdown"]
+          },
+          "x": { "type": "number" },
+          "z": { "type": "number" },
+          "pixelX": { "type": "number" },
+          "pixelY": { "type": "number" },
+          "inBounds": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

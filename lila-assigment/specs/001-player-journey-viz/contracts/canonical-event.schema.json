@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lila.local/contracts/canonical-event.schema.json",
+  "title": "CanonicalEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "userId",
+    "actorKind",
+    "matchId",
+    "mapId",
+    "collectionDay",
+    "x",
+    "y",
+    "z",
+    "ts",
+    "eventKind",
+    "sourceFile"
+  ],
+  "properties": {
+    "userId": { "type": "string", "minLength": 1 },
+    "actorKind": { "type": "string", "enum": ["human", "bot"] },
+    "matchId": { "type": "string", "minLength": 1 },
+    "mapId": {
+      "type": "string",
+      "enum": ["AmbroseValley", "GrandRift", "Lockdown"]
+    },
+    "collectionDay": {
+      "type": "string",
+      "enum": [
+        "February_10",
+        "February_11",
+        "February_12",
+        "February_13",
+        "February_14"
+      ]
+    },
+    "x": { "type": "number" },
+    "y": { "type": "number", "description": "Elevation only; not used for 2D projection" },
+    "z": { "type": "number" },
+    "ts": {
+      "type": "number",
+      "description": "Match-relative timestamp preserved from source; not calendar time. Physical unit is recorded on the parent match/index as tsUnit after schema inspection."
+    },
+    "eventKind": {
+      "type": "string",
+      "enum": [
+        "Position",
+        "BotPosition",
+        "Kill",
+        "Killed",
+        "BotKill",
+        "BotKilled",
+        "KilledByStorm",
+        "Loot"
+      ]
+    },
+    "sourceFile": { "type": "string" }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lila.local/contracts/match-index.schema.json",
+  "title": "MatchIndex",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["generatedAt", "tsUnit", "loadReport", "days", "maps", "matches"],
+  "properties": {
+    "generatedAt": { "type": "string" },
+    "tsUnit": {
+      "type": "string",
+      "description": "Physical unit of ts/tsMin/tsMax recorded after Parquet schema inspection (this export: ms)"
+    },
+    "loadReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "filesSeen",
+        "filesSkipped",
+        "skipReasons",
+        "unknownActors",
+        "unknownEvents",
+        "unknownMaps",
+        "quarantinePath"
+      ],
+      "properties": {
+        "filesSeen": { "type": "integer", "minimum": 0 },
+        "filesSkipped": { "type": "integer", "minimum": 0 },
+        "unknownActors": { "type": "integer", "minimum": 0 },
+        "unknownEvents": { "type": "integer", "minimum": 0 },
+        "unknownMaps": { "type": "integer", "minimum": 0 },
+        "quarantinePath": {
+          "type": "string",
+          "description": "Relative path to diagnostics.json. Present on index.json only, not inside diagnostics.json."
+        },
+        "skipReasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["file", "reason"],
+            "properties": {
+              "file": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "days": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dayId", "partialDay"],
+        "properties": {
+          "dayId": { "type": "string" },
+          "partialDay": { "type": "boolean" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "maps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["mapId", "scale", "originX", "originZ", "assetPath"],
+        "properties": {
+          "mapId": {
+            "type": "string",
+            "enum": ["AmbroseValley", "GrandRift", "Lockdown"]
+          },
+          "scale": { "type": "number" },
+          "originX": { "type": "number" },
+          "originZ": { "type": "number" },
+          "assetPath": { "type": "string" }
+        }
+      }
+    },
+    "matches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "matchId",
+          "mapId",
+          "collectionDay",
+          "humanCount",
+          "botCount",
+          "tsMin",
+          "tsMax",
+          "detailPath"
+        ],
+        "properties": {
+          "matchId": { "type": "string" },
+          "mapId": { "type": "string" },
+          "collectionDay": { "type": "string" },
+          "humanCount": { "type": "integer", "minimum": 0 },
+          "botCount": { "type": "integer", "minimum": 0 },
+          "eventCount": { "type": "integer", "minimum": 0 },
+          "tsMin": { "type": "number" },
+          "tsMax": { "type": "number" },
+          "detailPath": {
+            "type": "string",
+            "description": "Relative path to MatchDetail JSON; loaded only on selection"
+          }
+        }
+      }
+    }
+  }
+}
