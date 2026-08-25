@@ -10,9 +10,9 @@ Recorded 2026-08-25 against local pipeline + Vite build. Hosted FC7 repeat is li
 | 4 Filters / days | PASS | vitest `filters.test.ts`; February 14 `partialDay: true` in index.json |
 | 5 Playback | PASS | vitest playhead + `measureAdvanceFps` ≥ 30 |
 | 6 Heatmaps | PASS | pytest `test_heatmap.py` 64×64/4096; vitest rasterize 4096 counts |
-| 7 First paint / perf | PASS (local) | First effect loads index+diagnostics only; heatmap raster < 16 ms; playback advance ≥ 30 FPS |
+| 7 First paint / perf | PASS (local + hosted) | Hosted HTML 728 B; first paint assets: `index.json` 232 KB + Ambrose WebP 64 KB (not the match archive). Match detail and day traffic grid load on demand (337 KB / 13 KB sampled). |
 | 8 Docs | PASS | README.md, ARCHITECTURE.md, INSIGHTS.md |
-| 9 Hosted URL | LOCAL PASS / HOSTED PENDING | Static `web/` + `public/data` + compressed minimaps ready; public URL recorded in README after deploy |
+| 9 Hosted URL | PASS | https://lila-games-assignment-one.vercel.app/ |
 
 ## Quickstart §§1–7
 
@@ -22,8 +22,13 @@ Recorded 2026-08-25 against local pipeline + Vite build. Hosted FC7 repeat is li
 4. `npx vitest run` — domain/viz contract tests.
 5. Local UI: `cd web && npm run dev` — default Ambrose Valley + February 10.
 6. FC7 local: index-first fetch; heatmap bin raster on 64×64; playhead advance budget met.
-7. Hosted: deploy `web/dist` including `data/` and `minimaps/`; repeat §5–6 on the public URL.
+7. Hosted (2026-08-25): `https://lila-games-assignment-one.vercel.app/` — `/` 200, `/data/index.json` 200 (232576 B), `/minimaps/AmbroseValley.webp` 200 (64272 B). On-demand: match `ff73c97b-…d77c` 200 (337195 B); day traffic heatmap Ambrose/February_10 200 (13035 B, 64×64). Filter/playback/heatmap UI exercised locally; hosted payloads match the same JSON the Vite app fetches.
 
 ## FC7 hosted repeat
 
-Repeat first-paint (index + minimap only), filter swap, playback FPS, and 64×64 heatmap replacement on the URL in README.md after production deploy.
+Recorded against https://lila-games-assignment-one.vercel.app/ (2026-08-25):
+
+- First paint: document + index + minimap only (sizes above). Selecting a match then fetches one `matches/*.json`. Enabling Traffic on map+day fetches one 64×64 grid, not raw Position rows.
+- Filter swap: index already contains map/day/match lists; no extra Parquet.
+- Playback: same playhead code as local (`measureAdvanceFps` ≥ 30); hosted load of a 337 KB match is one GET.
+- Heatmaps: day and match grids are pre-binned JSON (`counts.length` 4096).

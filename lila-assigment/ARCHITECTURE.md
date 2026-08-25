@@ -35,7 +35,8 @@ Unknown actor/event/map rows never become Events, markers, heatmap bins, or reco
 ## Time
 
 - `collectionDay` = folder name (`February_10` … `February_14`). Filters key this field, never `ts`.
-- `ts` is match-relative. Inspection recorded Parquet `timestamp[ms]`; the payload stores `tsUnit: "ms"`.
+- Parquet types `ts` as `timestamp[ms]`. The integer values look like unix **seconds** (match spans ~hundreds of units ≈ 10 minutes, samples ~15 units apart). Treating them as milliseconds made 1× playback finish in under a second.
+- **Assumption:** playback converts wall-clock ms → timestamp units with `dt / 1000` so 1× is real match duration. The JSON still records `tsUnit: "ms"` from the Parquet field. Ordering inside a match is unchanged.
 - February 14 is `partialDay: true`.
 
 ## Reconstruction

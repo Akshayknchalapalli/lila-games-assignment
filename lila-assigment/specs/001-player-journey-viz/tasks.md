@@ -285,7 +285,7 @@ Failure behavior: load/error/partial states are explicit; the tool does not cras
 
 - [x] T059 [US6] Add loading state distinct from blank canvas in `web/src/ui/EmptyErrorStates.tsx`
 - [x] T060 [US6] Configure static deploy of `web/dist` + `web/public/data` + compressed minimaps (Vercel or Netlify config at `web/`)
-- [ ] T061 [US6] Record the public URL in `README.md`
+- [x] T061 [US6] Record the public URL in `README.md`
 
 ---
 
@@ -296,7 +296,7 @@ Failure behavior: load/error/partial states are explicit; the tool does not cras
 - [x] T062 [P] Write `README.md` (stack, setup, env, public URL)
 - [x] T063 [P] Write `ARCHITECTURE.md` (pipeline, MapConfig SSOT, projection formula, assumptions, tradeoffs, inspection notes)
 - [x] T064 [P] Write `INSIGHTS.md` (three evidenced findings)
-- [ ] T065 Run `specs/001-player-journey-viz/quickstart.md` §§1–7 as the final Gate 1–9 acceptance, including repeating FC7 first-paint/filter/playback/heatmap measurements on the **hosted** URL; record results in `specs/001-player-journey-viz/checklists/quality-gates.md`
+- [x] T065 Run `specs/001-player-journey-viz/quickstart.md` §§1–7 as the final Gate 1–9 acceptance, including repeating FC7 first-paint/filter/playback/heatmap measurements on the **hosted** URL; record results in `specs/001-player-journey-viz/checklists/quality-gates.md`
 
 ---
 
