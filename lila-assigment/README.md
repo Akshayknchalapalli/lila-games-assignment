@@ -54,3 +54,5 @@ cd web && npx vitest run
 ## Architecture
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md). Design notes from the data: [INSIGHTS.md](./INSIGHTS.md).
+
+Open the [public URL](https://lila-games-assignment-one.vercel.app/) and walk map placement, human/bot paths, event markers, map/day/match filters, playback, and the three heatmap toggles.
